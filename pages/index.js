@@ -7,8 +7,10 @@ import Layout,
 } from '../components/layout';
 import Link from 'next/link';
 import utilStyles from '../styles/utils.module.css';
+import { db } from '../pg_db/db';
 
 export default function Home({ allPostsData }) {
+
   return (
     <Layout home>
       <Head>
@@ -18,7 +20,7 @@ export default function Home({ allPostsData }) {
         <p>[blah]</p>
         <Link href="/posts/[id]" as="/posts/ssg-ssr"><a>ssg-ssr</a></Link>
         {' '}
-        <Link href="/posts/[id]" as="pre-rendering"><a>pre-rendering</a></Link>
+        <Link href="/posts/[id]" as="/posts/pre-rendering"><a>pre-rendering</a></Link>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
@@ -41,7 +43,19 @@ export default function Home({ allPostsData }) {
 }
 
 export async function getStaticProps() {
+
   const allPostsData = getSortedPostsData();
+
+  console.log(db);
+
+  db.manyOrNone(`select * from users;`)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   return {
     props: {
       allPostsData
