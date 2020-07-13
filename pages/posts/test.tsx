@@ -11,7 +11,7 @@ const Test = () => {
 
   useEffect(() => {
     setTest(['one', 'two', 'three']);
-    console.log(test);
+    // console.log(test);
   }, []);
 
   return (

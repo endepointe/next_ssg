@@ -1,10 +1,16 @@
-const pgp = require('pg-promise')({
+const initOptions = {
+  connect(client, dc, useCount) {
+    const cp = client.connectionParameters;
+    console.log('Connected to database: ' + cp.database, '\nDC: ' + dc + '\nuseCount: ' + useCount);
+  },
   disconnect(client, dc) {
-    // console.log('DISCONNECTCLIENT: ' + client,'\nDISCONNECTDC: ' + dc);
+    // console.log('CLIENT: ' + client,'\nDC: ' + dc);
     const cp = client.connectionParameters;
     console.log('Disconnecting from database:', cp.database);
   }
-});
+}
+
+const pgp = require('pg-promise')(initOptions);
 
 const cn = {
   host: 'localhost',
@@ -17,4 +23,4 @@ const cn = {
 
 const db = pgp(cn);
 
-module.exports = { db };
+module.exports = db;

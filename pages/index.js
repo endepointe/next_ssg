@@ -7,7 +7,7 @@ import Layout,
 } from '../components/layout';
 import Link from 'next/link';
 import utilStyles from '../styles/utils.module.css';
-import { db } from '../pg_db/db';
+import db from '../pg_db/db';
 
 export default function Home({ allPostsData }) {
 
